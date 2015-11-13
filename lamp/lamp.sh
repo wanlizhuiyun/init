@@ -19,3 +19,40 @@ systemctl start mariadb
 systemctl enable httpd
 systemctl enable mariadb
 mysql_secure_installation
+
+#Create directory structure
+mkdir -p /var/www/html/www/public
+touch /var/www/html/www/public/index.html
+cat > /var/www/html/www/public/index.html << EOF
+<html>
+ <head>
+  <title>Sen Thinks</title>
+ </head>
+ <body>
+  <h1>Site in construction, coming soon...</h1>
+ </body>
+</html>
+EOF
+chown -R apache:apache /var/www/html/www/public
+chmod -R 755 /var/www/html
+
+#Setup virtual host
+mkdir /etc/httpd/sites-available
+mkdir /etc/httpd/sites-enabled
+cat >> /etc/httpd/conf/httpd.conf << EOF
+IncludeOptional sites-enabled/*.conf
+EOF
+touch /etc/httpd/sites-available/www.conf
+cat > /etc/httpd/sites-available/www.conf << EOF
+<VirtualHost *:80>
+ ServerName www
+ ServerAlias 
+ DocumentRoot /var/www/html/www/public
+ ErrorLog logs/www-error_log
+ CustomLog logs/www-access_log combined
+</VirtualHost>
+EOF
+ln -s /etc/httpd/sites-available/www.conf /etc/httpd/sites-enabled/www.conf
+
+#Finish
+systemctl restart httpd
