@@ -37,3 +37,5 @@ cat > /etc/httpd/sites-available/cloud.conf << EOF
 EOF
 ln -s /etc/httpd/sites-available/cloud.conf /etc/httpd/sites-enabled/cloud.conf
 
+#Finish
+systemctl restart httpd
