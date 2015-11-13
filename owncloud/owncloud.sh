@@ -12,7 +12,7 @@ yum -y install php-dom php-xmlwriter php-gd
 #Install owncloud 8.2
 mkdir /var/www/html/cloud
 wget -O /var/www/html/cloud/owncloud.tar.bz2 https://download.owncloud.org/community/owncloud-8.2.0.tar.bz2
-tar -jzx -f /var/www/html/cloud/owncloud.tar.bz2
+tar -jxv -f /var/www/html/cloud/owncloud.tar.bz2
 rm /var/www/html/cloud/owncloud.tar.bz2
 chown -R apache:apache /var/www/html/cloud/owncloud
 
