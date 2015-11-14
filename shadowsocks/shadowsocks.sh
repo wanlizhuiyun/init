@@ -13,15 +13,19 @@ easy_install pip
 pip install shadowsocks
 
 #Prepair json
+while [ "$pass1" != "$pass2" ]
+do
+	read -s -p "Enter shadowsocks password: " pass1
+	read -s -p "Again: " pass2
+done
 touch /etc/shadowsocks.json
-read -s -p "shadowsocks password: " pass
 cat > /etc/shadowsocks.json << EOF
 {
 	"server":"0.0.0.0",
 	"server_port":8989,
 	"local_address": "127.0.0.1",
 	"local_port":1080,
-	"password":"${pass}",
+	"password":"${pass1}",
 	"timeout":300,
 	"method":"aes-256-cfb",
 	"fast_open": true
