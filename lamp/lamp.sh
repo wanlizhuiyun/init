@@ -43,7 +43,9 @@ cat >> /etc/httpd/conf/httpd.conf << EOF
 IncludeOptional sites-enabled/*.conf
 EOF
 read -p "Enter ServerName: " servername
+echo ""
 read -p "Enter ServerAlias: " serveralias
+echo ""
 touch /etc/httpd/sites-available/www.conf
 cat > /etc/httpd/sites-available/www.conf << EOF
 <VirtualHost *:80>
