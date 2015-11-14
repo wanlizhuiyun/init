@@ -17,10 +17,11 @@ rm /var/www/html/cloud/owncloud.tar.bz2
 chown -R apache:apache /var/www/html/cloud/owncloud
 
 #Setup virtual host
+read -p "Enter ServerName: " servername
 touch /etc/httpd/sites-available/cloud.conf
 cat > /etc/httpd/sites-available/cloud.conf << EOF
 <VirtualHost *:80>
-	ServerName cloud
+	ServerName ${servername}
 	<IfModule mod_alias.c>
 		Alias /owncloud /var/www/html/cloud/owncloud
 	</IfModule>
