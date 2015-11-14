@@ -12,12 +12,17 @@ echo '*   Fresh Server Initialization!      *'
 echo '*                                     *'
 echo '***************************************'
 
-echo 'Setting up repositories'
-sudo sh repositories.sh
-echo 'Updating system'
-sudo sh updates.sh
-echo 'Setting up commly used tools'
-sudo sh tools.sh
-echo 'Configuring vim'
-sh vim.sh
+#Add repositories
+sudo yum -y install yum-plugin-priorities epel-release http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el7.rf.x86_64.rpm wget unzip bzip2 vim
+
+#Configure repositories' priority
+sudo sed -i -e "s/\]$/\]\npriority=1/g" /etc/yum.repos.d/CentOS-Base.repo
+sudo sed -i -e "s/\]$/\]\npriority=5/g" /etc/yum.repos.d/epel.repo
+sudo sed -i -e "s/\]$/\]\npriority=10/g" /etc/yum.repos.d/rpmforge.repo
+
+#Update whole system
+sudo yum -y update
+
+#Create vim link
+ln -s ~/init/.vim/vimrc ~/.vimrc
 

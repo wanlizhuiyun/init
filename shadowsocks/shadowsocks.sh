@@ -16,14 +16,14 @@ pip install shadowsocks
 touch /etc/shadowsocks.json
 cat > /etc/shadowsocks.json << EOF
 {
-    "server":"0.0.0.0",
-    "server_port":8989,
-    "local_address": "127.0.0.1",
-    "local_port":1080,
-    "password":"pass",
-    "timeout":300,
-    "method":"aes-256-cfb",
-    "fast_open": true
+	"server":"0.0.0.0",
+	"server_port":8989,
+	"local_address": "127.0.0.1",
+	"local_port":1080,
+	"password":"pass",
+	"timeout":300,
+	"method":"aes-256-cfb",
+	"fast_open": true
 }
 EOF
 
@@ -32,9 +32,9 @@ touch /etc/firewalld/services/shadowsocks.xml
 cat > /etc/firewalld/services/shadowsocks.xml << EOF
 <?xml version="1.0" encoding="utf-8"?>
 <service>
-  <short>shadowsocks</short>
-  <description>enable shadowsocks.</description>
-  <port protocol="tcp" port="8989"/>
+	<short>shadowsocks</short>
+	<description>enable shadowsocks.</description>
+	<port protocol="tcp" port="8989"/>
 </service>
 EOF
 firewall-cmd --reload
