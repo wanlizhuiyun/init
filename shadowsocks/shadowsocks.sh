@@ -14,6 +14,7 @@ pip install shadowsocks
 
 #Prepair json
 touch /etc/shadowsocks.json
+read -p "shadowsocks password: " pass
 cat > /etc/shadowsocks.json << EOF
 {
 	"server":"0.0.0.0",
