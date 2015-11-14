@@ -13,12 +13,9 @@ easy_install pip
 pip install shadowsocks
 
 #Prepair json
-read -s -p "Enter shadowsocks password: " pass1
-read -s -p "Again: " pass2
-while [ "$pass1" != "$pass2" ]
+while [ read -s -p "Password: " pass1 != read -s -p "Again: " pass2 ]
 do
-	read -s -p "Enter shadowsocks password: " pass1
-	read -s -p "Again: " pass2
+	echo "Doesn't match!"
 done
 touch /etc/shadowsocks.json
 cat > /etc/shadowsocks.json << EOF
