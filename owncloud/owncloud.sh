@@ -18,6 +18,7 @@ chown -R apache:apache /var/www/html/cloud/owncloud
 
 #Setup virtual host
 read -p "Enter ServerName: " servername
+echo ""
 touch /etc/httpd/sites-available/cloud.conf
 cat > /etc/httpd/sites-available/cloud.conf << EOF
 <VirtualHost *:80>
