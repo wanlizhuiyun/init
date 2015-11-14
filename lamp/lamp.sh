@@ -42,11 +42,13 @@ mkdir /etc/httpd/sites-enabled
 cat >> /etc/httpd/conf/httpd.conf << EOF
 IncludeOptional sites-enabled/*.conf
 EOF
+read -p "Enter ServerName: " servername
+read -p "Enter ServerAlias: " serveralias
 touch /etc/httpd/sites-available/www.conf
 cat > /etc/httpd/sites-available/www.conf << EOF
 <VirtualHost *:80>
-	ServerName 
-	ServerAlias www
+	ServerName ${servername}
+	ServerAlias ${serveralias}
 	DocumentRoot /var/www/html/www/public
 	ErrorLog logs/www-error_log
 	CustomLog logs/www-access_log combined
