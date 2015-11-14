@@ -25,12 +25,12 @@ mkdir -p /var/www/html/www/public
 touch /var/www/html/www/public/index.html
 cat > /var/www/html/www/public/index.html << EOF
 <html>
- <head>
-  <title>Sen Thinks</title>
- </head>
- <body>
-  <h1>Site in construction, coming soon...</h1>
- </body>
+	<head>
+		<title>Sorry</title>
+	</head>
+	<body>
+		<h1>Site in construction, coming soon...</h1>
+	</body>
 </html>
 EOF
 chown -R apache:apache /var/www/html/www/public
@@ -45,11 +45,11 @@ EOF
 touch /etc/httpd/sites-available/www.conf
 cat > /etc/httpd/sites-available/www.conf << EOF
 <VirtualHost *:80>
- ServerName www
- ServerAlias 
- DocumentRoot /var/www/html/www/public
- ErrorLog logs/www-error_log
- CustomLog logs/www-access_log combined
+	ServerName www
+	ServerAlias 
+	DocumentRoot /var/www/html/www/public
+	ErrorLog logs/www-error_log
+	CustomLog logs/www-access_log combined
 </VirtualHost>
 EOF
 ln -s /etc/httpd/sites-available/www.conf /etc/httpd/sites-enabled/www.conf
