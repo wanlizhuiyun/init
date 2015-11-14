@@ -12,7 +12,7 @@ yum -y install php-dom php-xmlwriter php-gd
 #Install owncloud 8.2
 mkdir /var/www/html/cloud
 wget -O /var/www/html/cloud/owncloud.tar.bz2 https://download.owncloud.org/community/owncloud-8.2.0.tar.bz2
-tar -jxv -f /var/www/html/cloud/owncloud.tar.bz2
+tar -jxv -f /var/www/html/cloud/owncloud.tar.bz2 -C /var/www/html/cloud/
 rm /var/www/html/cloud/owncloud.tar.bz2
 chown -R apache:apache /var/www/html/cloud/owncloud
 
@@ -39,3 +39,26 @@ ln -s /etc/httpd/sites-available/cloud.conf /etc/httpd/sites-enabled/cloud.conf
 
 #Finish
 systemctl restart httpd
+
+#Setup data directory
+mkdir /var/owncloud_data
+
+ocpath='/var/www/html/cloud/owncloud'
+htuser='apache'
+htgroup='apache'
+rootuser='root'
+
+find ${ocpath}/ -type f -print0 | xargs -0 chmod 0640
+find ${ocpath}/ -type d -print0 | xargs -0 chmod 0750
+
+chown -R ${rootuser}:${htgroup} ${ocpath}/
+chown -R ${htuser}:${htgroup} ${ocpath}/apps/
+chown -R ${htuser}:${htgroup} ${ocpath}/config/
+chown -R ${htuser}:${htgroup} /var/owncloud_data/
+chown -R ${htuser}:${htgroup} ${ocpath}/themes/
+
+chown ${rootuser}:${htgroup} ${ocpath}/.htaccess
+chown ${rootuser}:${htgroup} ${ocpath}/data/.htaccess
+
+chmod 0644 ${ocpath}/.htaccess
+chmod 0644 /var/owncloud_data/.htaccess

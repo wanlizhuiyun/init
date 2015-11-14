@@ -45,8 +45,8 @@ EOF
 touch /etc/httpd/sites-available/www.conf
 cat > /etc/httpd/sites-available/www.conf << EOF
 <VirtualHost *:80>
-	ServerName www
-	ServerAlias 
+	ServerName 
+	ServerAlias www
 	DocumentRoot /var/www/html/www/public
 	ErrorLog logs/www-error_log
 	CustomLog logs/www-access_log combined
