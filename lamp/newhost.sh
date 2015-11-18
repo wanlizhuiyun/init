@@ -25,14 +25,14 @@ cat > /var/www/${servername}/public_html/index.html << EOF
 </html>
 EOF
 chown -R apache:apache /var/www/${servername}/public_html
-chmod -R 755 /var/www
+chmod -R 755 /var/www/${servername}
 
 #Setup virtual host
 touch /etc/httpd/sites-available/${servername}.conf
 cat > /etc/httpd/sites-available/${servername}.conf << EOF
 <VirtualHost *:433>
-	ServerName ${servername}:433
-	ServerAlias ${serveralias}:433
+	ServerName ${servername}
+	ServerAlias ${serveralias}
 	DocumentRoot /var/www/${servername}/public_html
 	SSLCertificateFile /etc/httpd/ssl/apache.crt
 	SSLCertificateKeyFile /etc/httpd/ssl/apache.key
