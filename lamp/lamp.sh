@@ -7,11 +7,11 @@ PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
 
 #Install lamp
-yum -y install httpd mariadb-server mariadb php php-mysql
+yum -y install httpd mariadb-server mariadb php php-mysql mod_ssl
 
 #Configure lamp
 setsebool -P httpd_unified 1
-firewall-cmd --permanent --zone=public --add-service=http
+#firewall-cmd --permanent --zone=public --add-service=http
 firewall-cmd --permanent --zone=public --add-service=https
 firewall-cmd --reload
 systemctl start httpd
@@ -19,6 +19,18 @@ systemctl start mariadb
 systemctl enable httpd
 systemctl enable mariadb
 mysql_secure_installation
+
+#ssl
+mkdir /etc/httpd/ssl
+openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout /etc/httpd/ssl/apache.key -out /etc/httpd/ssl/apache.crt
+#must configure /etc/httpd/conf.d/ssl.conf
+
+#Setup virtual host directory structure
+mkdir /etc/httpd/sites-available
+mkdir /etc/httpd/sites-enabled
+cat >> /etc/httpd/conf/httpd.conf << EOF
+IncludeOptional sites-enabled/*.conf
+EOF
 
 #Create directory structure
 mkdir -p /var/www/html/www/public
@@ -37,11 +49,6 @@ chown -R apache:apache /var/www/html/www/public
 chmod -R 755 /var/www/html
 
 #Setup virtual host
-mkdir /etc/httpd/sites-available
-mkdir /etc/httpd/sites-enabled
-cat >> /etc/httpd/conf/httpd.conf << EOF
-IncludeOptional sites-enabled/*.conf
-EOF
 read -p "Enter ServerName: " servername
 echo ""
 read -p "Enter ServerAlias: " serveralias
