@@ -34,10 +34,23 @@ cat > /etc/httpd/sites-available/${servername}.conf << EOF
 	ServerName ${servername}
 	ServerAlias ${serveralias}
 	DocumentRoot /var/www/${servername}/public_html
-	SSLCertificateFile /etc/httpd/ssl/apache.crt
-	SSLCertificateKeyFile /etc/httpd/ssl/apache.key
 	ErrorLog logs/${servername}-error_log
 	CustomLog logs/${servername}-access_log combined
+	LogLevel warn
+	SSLEngine on
+	SSLProtocol all -SSLv2
+	SSLCipherSuite HIGH:MEDIUM:!aNULL:!MD5
+	SSLCertificateFile /etc/httpd/ssl/apache.crt
+	SSLCertificateKeyFile /etc/httpd/ssl/apache.key
+	<Files ~ "\.(cgi|shtml|phtml|php3?)$">
+		SSLOptions +StdEnvVars
+	</Files>
+	<Directory "/var/www/cgi-bin">
+		SSLOptions +StdEnvVars
+	</Directory>
+	BrowserMatch "MSIE [2-5]" \
+		nokeepalive ssl-unclean-shutdown \
+		downgrade-1.0 force-response-1.0
 </VirtualHost>
 EOF
 ln -s /etc/httpd/sites-available/${servername}.conf /etc/httpd/sites-enabled/${servername}.conf
