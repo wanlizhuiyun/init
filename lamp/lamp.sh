@@ -32,38 +32,5 @@ cat >> /etc/httpd/conf/httpd.conf << EOF
 IncludeOptional sites-enabled/*.conf
 EOF
 
-#Create directory structure
-mkdir -p /var/www/html/www/public
-touch /var/www/html/www/public/index.html
-cat > /var/www/html/www/public/index.html << EOF
-<html>
-	<head>
-		<title>Sorry</title>
-	</head>
-	<body>
-		<h1>Site in construction, coming soon...</h1>
-	</body>
-</html>
-EOF
-chown -R apache:apache /var/www/html/www/public
-chmod -R 755 /var/www/html
-
-#Setup virtual host
-read -p "Enter ServerName: " servername
-echo ""
-read -p "Enter ServerAlias: " serveralias
-echo ""
-touch /etc/httpd/sites-available/www.conf
-cat > /etc/httpd/sites-available/www.conf << EOF
-<VirtualHost *:80>
-	ServerName ${servername}
-	ServerAlias ${serveralias}
-	DocumentRoot /var/www/html/www/public
-	ErrorLog logs/www-error_log
-	CustomLog logs/www-access_log combined
-</VirtualHost>
-EOF
-ln -s /etc/httpd/sites-available/www.conf /etc/httpd/sites-enabled/www.conf
-
 #Finish
 systemctl restart httpd
