@@ -33,4 +33,5 @@ IncludeOptional sites-enabled/*.conf
 EOF
 
 #Finish
+chmod -R 755 /var/www
 systemctl restart httpd
