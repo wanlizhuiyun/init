@@ -12,7 +12,7 @@ nginxpath=/etc/nginx
 docpath=/usr/share/nginx
 
 #Configure lamp
-setsebool -P httpd_unified 1
+#setsebool -P httpd_unified 1
 firewall-cmd --permanent --zone=public --add-service=http
 firewall-cmd --permanent --zone=public --add-service=https
 firewall-cmd --reload
