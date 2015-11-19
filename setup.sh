@@ -12,6 +12,29 @@ echo '*        Fresh Server Initialization!         *'
 echo '*                                             *'
 echo '***********************************************'
 
+#Enable firewalld
+sudo systemctl start firewalld
+sudo systemctl enable firewalld
+
+#Set timezone
+sudo timedatectl set-timezone Asia/Shanghai
+
+#Set swap
+sudo fallocate -l 1G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+cat >> /etc/fstab << EOF
+/swapfile swap  swap  sw  0 0
+EOF
+sudo sysctl vm.swappiness=10
+sudo sysctl vm.vfs_cache_pressure=50
+cat >> /etc/sysctl.conf << EOF
+vm.swappiness = 10
+vm.vfs_cache_pressure = 50
+EOF
+
+
 #Configure repositories' priority
 sudo yum -y install yum-plugin-priorities
 sudo sed -i -e "s/\]$/\]\npriority=1/g" /etc/yum.repos.d/CentOS-Base.repo
