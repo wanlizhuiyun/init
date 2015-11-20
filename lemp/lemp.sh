@@ -45,9 +45,7 @@ chmod 600 ${nginxpath}/ssl/nginx.crt
 mkdir ${nginxpath}/sites-available
 mkdir ${nginxpath}/sites-enabled
 cp ${nginxpath}/nginx.conf ${nginxpath}/nginx.conf.bak
-#cat >> ${nginxpath}/nginx.conf << EOF
-#include /etc/nginx/sites-enabled/*.conf;
-#EOF
+sed -i "s/^}$/\ \ \ \ include\ \/etc\/nginx\/sites\-enabled\/\*\.conf\n}/g" ${nginxpath}/nginx.conf
 
 #Virtual Host
 #touch ${nginxpath}/
