@@ -8,8 +8,11 @@ export PATH
 
 #Install php extensions
 #yum -y install php-dom php-xmlwriter php-gd
+nginxpath=/etc/nginx
+htmlpath=/usr/share/nginx
 
-#Install owncloud 8.2
+
+#Install owncloud 
 mkdir /var/www/html/cloud
 wget -O /var/www/html/cloud/owncloud.tar.bz2 https://download.owncloud.org/community/owncloud-8.2.0.tar.bz2
 tar -jxv -f /var/www/html/cloud/owncloud.tar.bz2 -C /var/www/html/cloud/
