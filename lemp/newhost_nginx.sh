@@ -6,26 +6,28 @@
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
 
+htmlpath=/usr/share/nginx
+
 read -p "Enter ServerName: " servername
 echo ""
 read -p "Enter ServerAlias: " serveralias
 echo ""
 
 #Create web directory structure
-mkdir -p /var/www/${servername}/public_html
-touch /var/www/${servername}/public_html/index.html
-cat > /var/www/${servername}/public_html/index.html << EOF
+mkdir -p ${htmlpath}/${servername}/public_html
+touch ${htmlpath}/${servername}/public_html/index.html
+cat > ${htmlpath}/${servername}/public_html/index.html << EOF
 <html>
 	<head>
-		<title>Sorry</title>
+		<title>${servername}</title>
 	</head>
 	<body>
-		<h1>Site in construction, coming soon...</h1>
+		<h1>${servername} in construction, coming soon...</h1>
 	</body>
 </html>
 EOF
-chown -R apache:apache /var/www/${servername}/public_html
-chmod -R 755 /var/www/${servername}
+chown -R apache:apache ${htmlpath}/${servername}/public_html
+chmod -R 755 ${htmlpath}/${servername}
 
 #Setup virtual host
 touch /etc/httpd/sites-available/${servername}.conf
