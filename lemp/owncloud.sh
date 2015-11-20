@@ -12,7 +12,7 @@ read -p "Enter ServerName: " servername
 echo ""
 
 #Install php extensions
-#yum -y install php-dom php-xmlwriter php-gd
+yum -y install php-dom php-xmlwriter php-gd
 
 #Install owncloud 
 mkdir -p ${htmlpath}/${servername}
