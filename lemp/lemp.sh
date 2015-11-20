@@ -44,7 +44,7 @@ chmod 600 ${nginxpath}/ssl/nginx.crt
 #Setup virtual host directory structure
 mkdir ${nginxpath}/sites-available
 mkdir ${nginxpath}/sites-enabled
-#cp ${nginxpath}/nginx.conf ${nginxpath}/nginx.conf.bak
+cp ${nginxpath}/nginx.conf ${nginxpath}/nginx.conf.bak
 #cat >> ${nginxpath}/nginx.conf << EOF
 #include /etc/nginx/sites-enabled/*.conf;
 #EOF
