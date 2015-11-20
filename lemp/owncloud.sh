@@ -50,9 +50,9 @@ server {
         client_max_body_size 10G; # set max upload size
         fastcgi_buffers 64 4K;
 
-        rewrite ^/caldav(.*)$ /remote.php/caldav$1 redirect;
-        rewrite ^/carddav(.*)$ /remote.php/carddav$1 redirect;
-        rewrite ^/webdav(.*)$ /remote.php/webdav$1 redirect;
+        rewrite ^/caldav(.*)$ /remote.php/caldav\$1 redirect;
+        rewrite ^/carddav(.*)$ /remote.php/carddav\$1 redirect;
+        rewrite ^/webdav(.*)$ /remote.php/webdav\$1 redirect;
 
         index index.php;
         error_page 403 /core/templates/403.php;
@@ -76,17 +76,17 @@ server {
                 rewrite ^/.well-known/carddav /remote.php/carddav/ redirect;
                 rewrite ^/.well-known/caldav /remote.php/caldav/ redirect;
 
-                rewrite ^(/core/doc/[^\/]+/)$ $1/index.html;
+                rewrite ^(/core/doc/[^\/]+/)$ \$1/index.html;
 
-                try_files $uri $uri/ index.php;
+                try_files \$uri \$uri/ index.php;
         }
 
         location ~ ^(.+?\.php)(/.*)?$ {
-                try_files $1 = 404;
+                try_files \$1 = 404;
 
                 include fastcgi_params;
-                fastcgi_param SCRIPT_FILENAME $document_root$1;
-                fastcgi_param PATH_INFO $2;
+                fastcgi_param SCRIPT_FILENAME \$document_root\$1;
+                fastcgi_param PATH_INFO \$2;
                 fastcgi_param HTTPS on;
                 fastcgi_pass php-handler;
         }
@@ -100,7 +100,7 @@ server {
 
 }
 EOF
-ln -s ${htmlpath}/sites-available/${servername}.conf ${htmlpath}/sites-enabled/${servername}.conf
+ln -s ${nginxpath}/sites-available/${servername}.conf ${nginxpath}/sites-enabled/${servername}.conf
 
 #Finish
 systemctl restart nginx mariadb php-fpm
