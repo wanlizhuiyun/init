@@ -15,6 +15,8 @@ echo '***********************************************'
 #Enable firewalld
 systemctl start firewalld
 systemctl enable firewalld
+firewall-cmd --permanent --zone=public --remove-service=dhcpv6-client
+firewall-cmd --reload
 
 #Set timezone
 timedatectl set-timezone Asia/Shanghai
