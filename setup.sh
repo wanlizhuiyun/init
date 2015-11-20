@@ -50,4 +50,5 @@ yum -y update
 yum -y install wget unzip bzip2 vim
 
 #Create vim link
-ln -s ~/init/.vim/vimrc ~/.vimrc
+cp .vim/vimrc ${PWD%/*}/.vimrc
+cp .vim/vimrc /root/.vimrc
