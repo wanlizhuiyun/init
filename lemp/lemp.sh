@@ -30,6 +30,12 @@ sed -i "s/^;listen\.owner\ \=\ nobody$/listen\.owner\ \=\ nobody/g" /etc/php-fpm
 sed -i "s/^;listen\.group\ \=\ nobody$/listen\.group\ \=\ nobody/g" /etc/php-fpm.d/www.conf
 sed -i "s/^user\ \=\ apache$/user\ \=\ nginx/g" /etc/php-fpm.d/www.conf
 sed -i "s/^group\ \=\ apache$/group\ \=\ nginx/g" /etc/php-fpm.d/www.conf
+sed -i "s/^;env\[HOSTNAME\]\ \=\ \$HOSTNAME$/env\[HOSTNAME\]\ \=\ \$HOSTNAME/g" /etc/php-fpm.d/www.conf
+sed -i "s/^;env\[PATH\]\ \=\ \/usr\/local\/bin\:\/usr\/bin\:\/bin$/env\[PATH\]\ \=\ \/usr\/local\/bin\:\/usr\/bin\:\/bin/g" /etc/php-fpm.d/www.conf
+sed -i "s/^;env\[TMP\]\ \=\ \/tmp$/env\[TMP\]\ \=\ \/tmp/g" /etc/php-fpm.d/www.conf
+sed -i "s/^;env\[TMPDIR\]\ \=\ \/tmp$/env\[TMPDIR\]\ \=\ \/tmp/g" /etc/php-fpm.d/www.conf
+sed -i "s/^;env\[TEMP\]\ \=\ \/tmp$/env\[TEMP\]\ \=\ \/tmp/g" /etc/php-fpm.d/www.conf
+
 mkdir -p /var/lib/php/session
 chown nginx:nginx -R /var/lib/php/session/
 systemctl start php-fpm
@@ -45,7 +51,7 @@ chmod 600 ${nginxpath}/ssl/nginx.crt
 mkdir ${nginxpath}/sites-available
 mkdir ${nginxpath}/sites-enabled
 cp ${nginxpath}/nginx.conf ${nginxpath}/nginx.conf.bak
-sed -i "s/^}$/\ \ \ \ include\ \/etc\/nginx\/sites\-enabled\/\*\.conf\n}/g" ${nginxpath}/nginx.conf
+sed -i "s/^}$/\ \ \ \ include\ \/etc\/nginx\/sites\-enabled\/\*\.conf;\n}/g" ${nginxpath}/nginx.conf
 
 #Virtual Host
 #touch ${nginxpath}/
