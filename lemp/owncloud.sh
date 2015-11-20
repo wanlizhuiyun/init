@@ -45,7 +45,7 @@ server {
         ssl_certificate_key ${nginxpath}/ssl/nginx.key;
 
         # owncloud path
-        root ${htmlpath}/${servername}/owncloud;
+        root ${htmlpath}/${servername}/owncloud/;
 
         client_max_body_size 10G; # set max upload size
         fastcgi_buffers 64 4K;
