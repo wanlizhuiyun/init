@@ -20,19 +20,19 @@ sudo systemctl enable firewalld
 sudo timedatectl set-timezone Asia/Shanghai
 
 #Set swap
-#sudo fallocate -l 1G /swapfile
-#sudo chmod 600 /swapfile
-#sudo mkswap /swapfile
-#sudo swapon /swapfile
-#sudo cat >> /etc/fstab << EOF
-#/swapfile swap  swap  sw  0 0
-#EOF
-#sudo sysctl vm.swappiness=10
-#sudo sysctl vm.vfs_cache_pressure=50
-#sudo cat >> /etc/sysctl.conf << EOF
-#vm.swappiness = 10
-#vm.vfs_cache_pressure = 50
-#EOF
+sudo fallocate -l 1G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+sudo cat >> /etc/fstab << EOF
+/swapfile swap  swap  sw  0 0
+EOF
+sudo sysctl vm.swappiness=10
+sudo sysctl vm.vfs_cache_pressure=50
+sudo cat >> /etc/sysctl.conf << EOF
+vm.swappiness = 10
+vm.vfs_cache_pressure = 50
+EOF
 
 
 #Configure repositories' priority
