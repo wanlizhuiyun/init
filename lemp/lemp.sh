@@ -52,8 +52,12 @@ mkdir ${nginxpath}/sites-available
 mkdir ${nginxpath}/sites-enabled
 cp ${nginxpath}/nginx.conf ${nginxpath}/nginx.conf.bak
 
-sed '$d' ${nginxpath}/nginx.conf
-cat >> 
+sed -i '$d' ${nginxpath}/nginx.conf
+cat >> ${nginxpath}/nginx.conf << EOF
+    include /etc/nginx/sites-enabled/*.conf;
+    add_header Strict-Transport-Security "max-age=15768000; includeSubdomains; preload";
+}
+EOF
 sed -i "s/^}$/\ \ \ \ include\ \/etc\/nginx\/sites\-enabled\/\*\.conf;\n\ \ \ \ add_header Strict-Transport-Security "max-age=15768000; includeSubdomains; preload";}/g" ${nginxpath}/nginx.conf
 
 #Virtual Host
